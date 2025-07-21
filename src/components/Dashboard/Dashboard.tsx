@@ -15,7 +15,21 @@ const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [copied, setCopied] = useState(false);
 
-  const embedCode = `<script src="https://cdn.chatbotpro.com/widget.js" data-client-key="${user?.clientKey}"></script>`;
+  const embedCode = `
+    <script src="https://cdn.jsdelivr.net/gh/MM-27-dev/customer0-support-cdn@master/sanjeev.js"></script>
+    <script>
+      window.addEventListener("load", function () {
+        if (window.ChatBotWidget) {
+          const container = document.createElement("div");
+          document.body.appendChild(container);
+          window.ChatBotWidget.mount(container, {
+            clientKey: "${user?.clientKey}",
+            customUserId: "optional-user-id", 
+            apiUrl: "http://localhost:5000/api", 
+          });
+        }
+      });
+    </script>`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(embedCode);
@@ -90,8 +104,18 @@ const Dashboard: React.FC = () => {
           <p className="text-sm text-gray-600 mb-3">
             Add this script tag to your website to embed the chatbot
           </p>
-          <div className="bg-gray-50 p-3 rounded-lg font-mono text-xs text-gray-800 break-all">
-            {embedCode}
+          <div className="relative">
+            <pre className="bg-gray-900 text-green-200 p-4 rounded-lg font-mono text-xs overflow-x-auto whitespace-pre break-all border border-gray-800" style={{ minHeight: 120 }}>
+              <code>{embedCode}</code>
+            </pre>
+            <button
+              onClick={copyToClipboard}
+              className="absolute top-2 right-2 bg-gray-800 text-white px-2 py-1 rounded hover:bg-gray-700 text-xs flex items-center space-x-1"
+              style={{ zIndex: 2 }}
+            >
+              {copied ? <CheckCircle size={14} /> : <Copy size={14} />}
+              <span>{copied ? 'Copied!' : 'Copy'}</span>
+            </button>
           </div>
         </div>
       </div>
