@@ -10,10 +10,52 @@ import {
   Key,
   Code
 } from 'lucide-react';
+import axios from 'axios';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [copied, setCopied] = useState(false);
+  const [faqCount, setFaqCount] = useState(0);
+  const [conversationCount, setConversationCount] = useState(0);
+  const [responseRate, setResponseRate] = useState(100);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        // Fetch FAQs
+        const faqRes = await axios.get('http://localhost:5000/api/faqs', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("faq response", faqRes);
+        
+        setFaqCount(faqRes.data.length);
+
+        // Fetch Conversations
+        const convRes = await axios.get('http://localhost:5000/api/conversations/get-conversations', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("Conversation Response", convRes.data.length);
+        
+        setConversationCount(convRes.data.length);
+
+        // Calculate response rate
+        let userMsg = 0, botMsg = 0;
+        convRes.data.forEach((conv: any) => {
+          userMsg += conv.messages.filter((m: any) => !m.isBot).length;
+          botMsg += conv.messages.filter((m: any) => m.isBot).length;
+        });
+        setResponseRate(userMsg ? Math.round((botMsg / userMsg) * 100) : 100);
+      } catch (error) {
+        // fallback to 0 if error
+        setFaqCount(0);
+        setConversationCount(0);
+        setResponseRate(100);
+      }
+    };
+    const token = localStorage.getItem('token');
+    if (token) fetchStats();
+  }, []);
 
   const embedCode = `
     <script src="https://cdn.jsdelivr.net/gh/MM-27-dev/customer0-support-cdn@master/sanjeev.js"></script>
@@ -143,15 +185,15 @@ const Dashboard: React.FC = () => {
       <div className="grid md:grid-cols-3 gap-6 mt-8">
         <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
           <h4 className="text-lg font-semibold mb-2">Total FAQs</h4>
-          <p className="text-3xl font-bold">12</p>
+          <p className="text-3xl font-bold">{faqCount}</p>
         </div>
         <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
           <h4 className="text-lg font-semibold mb-2">Conversations</h4>
-          <p className="text-3xl font-bold">48</p>
+          <p className="text-3xl font-bold">{conversationCount}</p>
         </div>
         <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white">
           <h4 className="text-lg font-semibold mb-2">Response Rate</h4>
-          <p className="text-3xl font-bold">96%</p>
+          <p className="text-3xl font-bold">{responseRate}%</p>
         </div>
       </div>
     </div>
