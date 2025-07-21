@@ -60,6 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       const { token, user } = response.data;
       localStorage.setItem('token', token);
+      localStorage.setItem('clientKey', user.clientKey);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setUser(user);
       return true;
@@ -77,6 +78,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       const { token, user } = response.data;
       localStorage.setItem('token', token);
+      localStorage.setItem('clientKey', user.clientKey);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setUser(user);
       return true;
@@ -87,6 +89,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('clientKey');
     delete axios.defaults.headers.common['Authorization'];
     setUser(null);
   };

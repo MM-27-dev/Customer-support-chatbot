@@ -23,15 +23,15 @@ interface ThemeContextType {
 }
 
 const defaultTheme: ChatbotTheme = {
-  primaryColor: '#3B82F6',
-  secondaryColor: '#EFF6FF',
-  backgroundColor: '#FFFFFF',
-  textColor: '#1F2937',
-  botMessageColor: '#F3F4F6',
-  userMessageColor: '#3B82F6',
-  headerColor: '#1F2937',
-  buttonColor: '#3B82F6',
-  companyName: 'Your Company',
+  primaryColor: "#1d4ed8",
+  secondaryColor: "#589ee4",
+  backgroundColor: "#ffffff",
+  textColor: "#1f2937",
+  headerColor: "#589ee4",
+  buttonColor: "#1d4ed8",
+  botMessageColor: "#f8fafc",
+  userMessageColor: "#1d4ed8",
+  companyName: "Your Company",
   companyLogo: '',
   welcomeMessage: 'Hello! How can I help you today?',
 };
