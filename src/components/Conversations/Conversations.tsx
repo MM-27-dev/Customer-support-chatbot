@@ -16,6 +16,8 @@ interface Conversation {
   updatedAt: Date;
 }
 
+const BackEndURL = "https://customer-support-chatbot-backend-oqjr.onrender.com";
+
 const Conversations: React.FC = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [expandedConversation, setExpandedConversation] = useState<string | null>(null);
@@ -27,7 +29,7 @@ const Conversations: React.FC = () => {
 
   const fetchConversations = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/conversations/get-conversations');
+      const response = await axios.get(`${BackEndURL}/api/conversations/get-conversations`);
       setConversations(response.data);
     } catch (error) {
       console.error('Failed to fetch conversations:', error);
