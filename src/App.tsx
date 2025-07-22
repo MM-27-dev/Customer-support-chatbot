@@ -32,16 +32,16 @@ function App() {
                   <FAQManager />
                 </ProtectedRoute>
               } />
-              <Route path="/theme" element={
-                <ProtectedRoute>
-                  <Navbar />
-                  <ThemeCustomizer />
-                </ProtectedRoute>
-              } />
               <Route path="/conversations" element={
                 <ProtectedRoute>
                   <Navbar />
                   <Conversations />
+                </ProtectedRoute>
+              } />
+              <Route path="/theme" element={
+                <ProtectedRoute>
+                  <Navbar />
+                  <ThemeCustomizer />
                 </ProtectedRoute>
               } />
               <Route path="*" element={<Navigate to="/" replace />} />

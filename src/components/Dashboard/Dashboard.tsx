@@ -69,7 +69,7 @@ const Dashboard: React.FC = () => {
           window.ChatBotWidget.mount(container, {
             clientKey: "${user?.clientKey}",
             customUserId: "optional-user-id", 
-            apiUrl: "${BackEndURL}/api", 
+            apiUrl: "${BackEndURL}", 
           });
         }
       });
