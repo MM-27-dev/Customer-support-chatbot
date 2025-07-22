@@ -19,8 +19,8 @@ const Navbar: React.FC = () => {
   const navItems = [
     { path: '/', icon: Home, label: 'Dashboard' },
     { path: '/faqs', icon: MessageSquare, label: 'FAQs' },
-    { path: '/theme', icon: Palette, label: 'Theme' },
     { path: '/conversations', icon: Users, label: 'Conversations' },
+    { path: '/theme', icon: Palette, label: 'Theme' },
   ];
 
   return (
