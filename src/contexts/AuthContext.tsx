@@ -39,9 +39,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
+  const BackEndURL = "https://customer-support-chatbot-backend-oqjr.onrender.com";
+
   const fetchUser = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/auth/me');
+      const response = await axios.get(`${BackEndURL}/api/auth/me`);
       setUser(response.data);
     } catch (error) {
       localStorage.removeItem('token');
@@ -53,7 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post(`${BackEndURL}/api/auth/login`, {
         email,
         password,
       });
@@ -71,7 +73,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const register = async (email: string, password: string): Promise<boolean> => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
+      const response = await axios.post(`${BackEndURL}/api/auth/register`, {
         email,
         password,
       });

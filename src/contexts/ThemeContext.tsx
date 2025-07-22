@@ -36,6 +36,8 @@ const defaultTheme: ChatbotTheme = {
   welcomeMessage: 'Hello! How can I help you today?',
 };
 
+const BackEndURL = "https://customer-support-chatbot-backend-oqjr.onrender.com";
+
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const useTheme = () => {
@@ -56,7 +58,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const fetchTheme = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/theme');
+      const response = await axios.get(`${BackEndURL}/api/theme`);
       setTheme({ ...defaultTheme, ...response.data });
     } catch (error) {
       console.error('Failed to fetch theme:', error);
@@ -71,7 +73,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const saveTheme = async (): Promise<boolean> => {
     try {
-      await axios.put('http://localhost:5000/api/theme', theme);
+      await axios.put(`${BackEndURL}/api/theme`, theme);
       return true;
     } catch (error) {
       console.error('Failed to save theme:', error);

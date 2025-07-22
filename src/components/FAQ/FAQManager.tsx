@@ -14,6 +14,7 @@ const FAQManager: React.FC = () => {
   const [newFaq, setNewFaq] = useState<FAQ>({ question: '', answer: '' });
   const [showAddForm, setShowAddForm] = useState(false);
   const [loading, setLoading] = useState(true);
+  const BackEndURL = "https://customer-support-chatbot-backend-oqjr.onrender.com";
 
   useEffect(() => {
     fetchFaqs();
@@ -21,7 +22,7 @@ const FAQManager: React.FC = () => {
 
   const fetchFaqs = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/faqs');
+      const response = await axios.get(`${BackEndURL}/api/faqs`);
       setFaqs(response.data);
     } catch (error) {
       console.error('Failed to fetch FAQs:', error);
@@ -34,7 +35,7 @@ const FAQManager: React.FC = () => {
     if (!newFaq.question.trim() || !newFaq.answer.trim()) return;
     
     try {
-      const response = await axios.post('http://localhost:5000/api/faqs', newFaq);
+      const response = await axios.post(`${BackEndURL}/api/faqs`, newFaq);
       setFaqs([...faqs, response.data]);
       setNewFaq({ question: '', answer: '' });
       setShowAddForm(false);
@@ -45,7 +46,7 @@ const FAQManager: React.FC = () => {
 
   const handleEdit = async (id: string, updatedFaq: FAQ) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/faqs/${id}`, updatedFaq);
+      const response = await axios.put(`${BackEndURL}/api/faqs/${id}`, updatedFaq);
       setFaqs(faqs.map(faq => faq._id === id ? response.data : faq));
       setIsEditing(null);
     } catch (error) {
@@ -55,7 +56,7 @@ const FAQManager: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:5000/api/faqs/${id}`);
+      await axios.delete(`${BackEndURL}/api/faqs/${id}`);
       setFaqs(faqs.filter(faq => faq._id !== id));
     } catch (error) {
       console.error('Failed to delete FAQ:', error);

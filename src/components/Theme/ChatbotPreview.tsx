@@ -32,10 +32,12 @@ interface Message {
 
 const DEMO_CLIENT_KEY = 'demo-key';
 
+
 const ChatbotPreview: React.FC<ChatbotPreviewProps> = ({ theme, clientKey }) => {
   const appliedTheme = theme || defaultTheme;
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+    const BackEndURL = "https://customer-support-chatbot-backend-oqjr.onrender.com";
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -94,7 +96,7 @@ const ChatbotPreview: React.FC<ChatbotPreviewProps> = ({ theme, clientKey }) => 
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/chat/chatResponse', {
+      const response = await axios.post(`${BackEndURL}/api/chat/chatResponse`, {
         clientKey: effectiveClientKey,
         message: userMessage.text,
       });

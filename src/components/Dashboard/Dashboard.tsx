@@ -19,12 +19,14 @@ const Dashboard: React.FC = () => {
   const [conversationCount, setConversationCount] = useState(0);
   const [responseRate, setResponseRate] = useState(100);
 
+  const BackEndURL = "https://customer-support-chatbot-backend-oqjr.onrender.com";
+
   useEffect(() => {
     const fetchStats = async () => {
       try {
         const token = localStorage.getItem('token');
         // Fetch FAQs
-        const faqRes = await axios.get('http://localhost:5000/api/faqs', {
+        const faqRes = await axios.get(`${BackEndURL}/api/faqs`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log("faq response", faqRes);
@@ -32,7 +34,7 @@ const Dashboard: React.FC = () => {
         setFaqCount(faqRes.data.length);
 
         // Fetch Conversations
-        const convRes = await axios.get('http://localhost:5000/api/conversations/get-conversations', {
+        const convRes = await axios.get(`${BackEndURL}/api/conversations/get-conversations`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log("Conversation Response", convRes.data.length);
@@ -67,7 +69,7 @@ const Dashboard: React.FC = () => {
           window.ChatBotWidget.mount(container, {
             clientKey: "${user?.clientKey}",
             customUserId: "optional-user-id", 
-            apiUrl: "http://localhost:5000/api", 
+            apiUrl: "${BackEndURL}/api", 
           });
         }
       });
