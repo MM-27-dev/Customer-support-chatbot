@@ -46,7 +46,7 @@ const ThemeCustomizer: React.FC = () => {
         <p className="text-gray-600 mt-2">Customize your chatbot's appearance and branding</p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-1 gap-8">
         {/* Theme Form */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center space-x-3 mb-6">
@@ -176,16 +176,7 @@ const ThemeCustomizer: React.FC = () => {
         </div>
 
         {/* Live Preview */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="bg-blue-100 p-2 rounded-lg">
-              <Eye className="text-blue-600" size={24} />
-            </div>
-            <h2 className="text-xl font-semibold text-gray-800">Live Preview</h2>
-          </div>
-          
           <ChatbotPreview theme={theme} />
-        </div>
       </div>
     </div>
   );
