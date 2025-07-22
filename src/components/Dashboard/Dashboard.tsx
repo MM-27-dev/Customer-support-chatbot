@@ -60,7 +60,7 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const embedCode = `
-    <script src="https://cdn.jsdelivr.net/gh/MM-27-dev/customer0-support-cdn@master/sanjeev.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/MM-27-dev/customer0-support-cdn@master/cdn3.js"></script>
     <script>
       window.addEventListener("load", function () {
         if (window.ChatBotWidget) {
