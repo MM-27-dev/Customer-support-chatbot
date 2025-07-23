@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
@@ -48,6 +49,7 @@ const Dashboard: React.FC = () => {
           botMsg += conv.messages.filter((m: any) => m.isBot).length;
         });
         setResponseRate(userMsg ? Math.round((botMsg / userMsg) * 100) : 100);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         // fallback to 0 if error
         setFaqCount(0);
@@ -60,7 +62,7 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const embedCode = `
-    <script src="https://cdn.jsdelivr.net/gh/MM-27-dev/customer0-support-cdn@master/cdn3.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/MM-27-dev/customer0-support-cdn@master/chat-bot-widget.iife.js"></script>
     <script>
       window.addEventListener("load", function () {
         if (window.ChatBotWidget) {
